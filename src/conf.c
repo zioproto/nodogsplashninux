@@ -690,6 +690,18 @@ config_read(char *filename) {
     /* skip any additional leading whitespace, make p1 point at start of arg */
     while (isblank(*p1)) p1++;
 
+    if(*p1 == '\'') {
+        p1++;
+        p2 = p1;
+        while ((*p2 != '\0') && (*p2 != '\'')) p2++;
+        if(p2[0] != '\'') {
+            debug(LOG_ERR, "Closing delimiter for option %s required on line %d in %s", s, linenum, filename);
+            debug(LOG_ERR, "Exiting...");
+            exit(-1);
+        }
+        *p2 = '\0';
+    }
+
     debug(LOG_DEBUG, "Parsing option: %s, arg: %s", s, p1);
     opcode = config_parse_opcode(s, filename, linenum);
 
