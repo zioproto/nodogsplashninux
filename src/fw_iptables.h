@@ -55,7 +55,7 @@ int iptables_fw_destroy(void);
 int iptables_fw_destroy_mention( char * table, char * chain, char * mention);
 
 /** @brief Define the access of a specific client */
-int iptables_fw_access(t_authaction action, char *ip, char *mac);
+int iptables_fw_access(t_authaction action, t_client *client);
 
 /** @brief Return the total download usage in bytes */
 unsigned long long int iptables_fw_total_download();
